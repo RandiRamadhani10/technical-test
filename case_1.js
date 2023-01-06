@@ -44,15 +44,32 @@ const fruits = [
   },
 ];
 
-let fruitName = "Buah yang dimiliki andi : ";
-let fruitNameFilter = [];
+// no 1
+const fruitNameFilter = [];
+
 fruits.forEach((data) => {
-  if (data.fruitName !== "apel") {
-    if (data.fruitName !== "KURMA") {
-      return (fruitName += ` ${data.fruitName},`);
-    }
-    return (fruitName += ` ${data.fruitName},`);
+  const name = data.fruitName.toLowerCase();
+  !fruitNameFilter.includes(name) && fruitNameFilter.push(name);
+});
+
+console.log(fruitNameFilter);
+
+// no 2 dan 4
+const fruitsBucketLocal = { fruitType: "Local", buah: [], jumlah: 0 };
+const fruitsBucketImport = { fruitType: "Import", buah: [], jumlah: 0 };
+
+fruits.forEach((data, index) => {
+  const name = data.fruitName.toLowerCase();
+  if (data.fruitType === "LOCAL") {
+    fruitsBucketLocal.jumlah += data.stock;
+    !fruitsBucketLocal.buah.includes(name) && fruitsBucketLocal.buah.push(name);
+  } else if (data.fruitType === "IMPORT") {
+    fruitsBucketImport.jumlah += data.stock;
+    !fruitsBucketImport.buah.includes(name) && fruitsBucketImport.buah.push(name);
   } else {
+    console.log("Type tidak tersedia");
   }
 });
-console.log(fruitName);
+
+console.log(fruitsBucketLocal);
+console.log(fruitsBucketImport);
